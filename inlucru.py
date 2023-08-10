@@ -1,32 +1,9 @@
-from PIL import Image
 ############################################
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 ################################################
 
-"""
-Project Name: Tech Test for Games Developments Bootcamp  
-Author: Vasile-Daniel DAN 
-Location: Sheffield, UK 
-Initial Date: 7 August 2023 (Last Update: 10 august 2023)  
-"""
-
-"""
-PROBLEM FORMULATION 
-
-Given the data from "img1", make a function where given a Point value returns all points in a visible cone that extends in the direction given a visible cone value made up of degrees and maximum direction. 
-
-For instance, the function VisiblePoints(1,45,20) returns an array with one object (27,46,2,East).
-
-In this example, the 45 degree cone is 45 degrees in each direction so could be visualised like in "img2":
-
-"""
-######### INPUT DATA  PROVIDED ###############################################################################
-img1 = Image.open("tabel1.jpg")
-img1.show()
-img2 = Image.open("conul.jpg")
-img2.show()
 ############ INPUT DATA ############################################################################
 x_origin = [28, 27, 16, 40, 8,  6, 28, 39, 12, 36, 22, 33, 41, 41, 14,  6, 46, 17, 28,  2] # see img 1
 y_origin = [42, 46, 22, 50, 6, 19,  5, 36, 34, 20, 47, 19, 18, 34, 29, 49, 50, 40, 26, 12] # see img 1
