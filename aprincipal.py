@@ -8,7 +8,7 @@ import numpy as np
 """
 Project Name: Tech Test for Games Developments Bootcamp  
 Author: Vasile-Daniel DAN 
-Location: Sheffield, 
+Location: Sheffield, UK 
 Initial Date: 7 August 2023 (Last Update: 10 august 2023)  
 """
 
