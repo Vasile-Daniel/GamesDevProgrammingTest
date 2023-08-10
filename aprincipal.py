@@ -100,6 +100,7 @@ X, Y = rotatingPoint(1,angle,R)
 
 
 # Call the function 'grafic()' to show the graphic like in the privided picture (more or less :D )
+# Find the points within the sector (the core of the problem)
 def grafic(x,y,R):
 
     # Calculate angles for the points
