@@ -1,10 +1,3 @@
-from PIL import Image
-############################################
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import numpy as np
-################################################
-
 """
 Project Name: Tech Test for Games Developments Bootcamp  
 Author: Vasile-Daniel DAN 
@@ -26,7 +19,6 @@ In this example, the 45 degree cone is 45 degrees in each direction so could be 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
-import math 
 ################################################
 
 ############ INPUT DATA ############################################################################
@@ -34,57 +26,50 @@ x_origin = [28, 27, 16, 40, 8,  6, 28, 39, 12, 36, 22, 33, 41, 41, 14,  6, 46, 1
 y_origin = [42, 46, 22, 50, 6, 19,  5, 36, 34, 20, 47, 19, 18, 34, 29, 49, 50, 40, 26, 12] # see img 1
 points = zip(x_origin, y_origin)
 direction = 5*["North", "East", "South", "West"] # see img 1 
+number = list(range(1,21))
 
 len_x = len(x_origin)
-angle = 45 # 
+angle = 45 # degree  
 R = 20 
-id = [] # number - see img 1 
-
-for i in range(1,len_x+1):
-    id.append(i)
 nr = 1
-########## PROBLEM SOLVING ##################################################################################################
-# put all the data in 1 matrix (bidimensional array): x_origin,y_origin, number direction 
-matrix = np.zeros((len_x,4))
-matrix = np.array(matrix, dtype=object)
-for i in range(len_x):
-    matrix[i][0] = id[i] # number 
-    matrix[i][1] = x_origin[i] # abscissa 
-    matrix[i][2] = y_origin[i] # ordinate 
-    matrix[i][3] = direction[i]
+
+# ########## PROBLEM SOLVING ##################################################################################################
+matrix = list(zip(number,x_origin,y_origin,direction))
+# print(matrix)
+
 
 # Find the points on the circle on the left and side part of direction (North, Weast, South, East)        
-def rotatingPoint(id,unghi,R):
+def visiblePoints(idd,unghi,R):
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
-    obj = matrix[id-1]
-    print(obj)
+    obj = matrix[idd-1]
+    # print("Object")
+    # print(obj)
     x0 = obj[1]
     y0 = obj[2]
 
     if (obj[3] == "North"):
         x = obj[1]
         y = obj[2]+R
-        print(obj[3])
+        # print(obj[3])
     elif (obj[3] == "West"):
         x = obj[1]-R
         y = obj[2]
-        print(obj[3])
+        # print(obj[3])
     elif (obj[3] == "South"):
         x = obj[1]
         y = obj[2]-R
-        print(obj[3])
+        # print(obj[3])
     elif (obj[3] == "East"):
         x = obj[1]+R
         y = obj[2]
-        print(obj[3])
+        # print(obj[3])
 
     pox = x0 - x
     poy = y0 - y
 
     # "LEFT" CON + "RIGHT CONE" = 1 cone
     # ######################################################### 
-
     # P(x1,y1) for the "left" cone -- the half left cone direction 
     x1 = x0 - np.cos(angle) * pox - np.sin(angle) * poy 
     y1 = y0 - np.cos(angle) * poy + np.sin(angle) * pox
@@ -110,6 +95,14 @@ def rotatingPoint(id,unghi,R):
             
 
     points_in_sector = list(points_in_sector)
+    # print(points_in_sector)
+
+    result = []
+    for i in range(len(matrix)):
+        for j in range(len(points_in_sector)):
+            if (points_in_sector[j]  == matrix[i][1:3]):
+                # print(matrix[i])
+                result.append(matrix[i])
 
     # Create a figure and an axis
     fig, ax = plt.subplots()
@@ -121,9 +114,7 @@ def rotatingPoint(id,unghi,R):
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
     ax.add_patch(sector)
 
-
-
-    # Plot the points within the sector 
+    # Plot all points ( includin within the sector )
     for k in range(len_x):
         # for i in range(len(x_points)): 
         #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
@@ -162,57 +153,14 @@ def rotatingPoint(id,unghi,R):
 
     # Display the plot
     plt.show()
-
-    return abscisa, ordonata  
-# call the function rotatingPoint() 
-rezult = rotatingPoint(nr,angle,R)
+    return result 
+    
 
 
 
-
-# Call the function 'grafic()' to show the graphic like in the privided picture (more or less :D )
-# Find the points within the sector (the core of the problem)
-# def visiblePoints(x,y,R):
-
-#     # Calculate angles for the points
-#     angle1 = np.degrees(np.arctan2(y[1] - y[0], x[1] - x[0]))
-#     angle2 = np.degrees(np.arctan2(y[2] - y[0], x[2] - x[0]))
-
-#     # Find the points within the sector
-#     points_in_sector = []
-#     for point in points:
-#         xp, yp = point
-#         angle_point = np.degrees(np.arctan2(yp - y[0], xp - x[0]))
-#         if angle2 <= angle_point <= angle1:
-#             points_in_sector.append(point)
-
-#     points_in_sector = list(points_in_sector)
-#     # Create a figure and an axis
-#     fig, ax = plt.subplots()
-
-#     # Create the wedge (sector) with the empty part
-#     sector = patches.Wedge((x[0], y[0]), R, angle2, angle1, fill=True, color='pink')
-#     ax.add_patch(sector)
-
-#     # Plot the points within the sector in red
-#     x_points, y_points = zip(*points_in_sector)
-#     ax.scatter(x_points, y_points, color='red', marker='.')
-
-#     # Set axis limits
-#     ax.set_xlim([x[0] - R - 5, x[0] + R + 5])
-#     ax.set_ylim([y[0] - R - 5, y[0] + R + 5])
-
-#     # Set aspect ratio to be equal
-#     ax.set_aspect('equal')
-#     ax.grid()
-#     for i_x, i_y in zip(x, y):
-#         ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
+# call the function visiblePoints() 
+rezult = visiblePoints(nr,angle,R)
+print(rezult)
 
 
-#     # Display the plot
-#     plt.show()
 
-#     return angle1, angle2 
-
-# a1, a2 = visiblePoints(X,Y,R)
-# print(a1,a2)
