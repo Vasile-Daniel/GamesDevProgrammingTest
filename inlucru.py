@@ -88,6 +88,9 @@ def rotatingPoint(id,unghi,R):
 
     # Create a figure and an axis
     fig, ax = plt.subplots()
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_title("The points in the area of the cone sector")
 
     # Create the wedge (sector) with the empty part
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
@@ -118,6 +121,8 @@ def rotatingPoint(id,unghi,R):
     for i_x, i_y in zip(abscisa, ordonata):
         ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
 
+    for j_x, j_y in list(points_in_sector):
+        ax.text(j_x, j_y, '({}, {})'.format(j_x, j_y))
 
     # Display the plot
     plt.show()

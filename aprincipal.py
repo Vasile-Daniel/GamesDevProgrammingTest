@@ -112,6 +112,9 @@ def rotatingPoint(id,unghi,R):
 
     # Create a figure and an axis
     fig, ax = plt.subplots()
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_title("The points in the area of the cone sector")
 
     # Create the wedge (sector) with the empty part
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
@@ -121,7 +124,7 @@ def rotatingPoint(id,unghi,R):
     x_points, y_points = zip(*points_in_sector)
     ax.scatter(x_points, y_points, color='red', marker='.')
 
-    # Plot origin, left poin, direction point and right point 
+    # Plot the points within the sector in red
     ax.scatter(x0, y0, color='blue', marker='.')
     ax.scatter(x1, y1, color='blue', marker='*')
     ax.scatter(x2, y2, color='blue', marker='*')
@@ -142,6 +145,8 @@ def rotatingPoint(id,unghi,R):
     for i_x, i_y in zip(abscisa, ordonata):
         ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
 
+    for j_x, j_y in list(points_in_sector):
+        ax.text(j_x, j_y, '({}, {})'.format(j_x, j_y))
 
     # Display the plot
     plt.show()
@@ -149,6 +154,9 @@ def rotatingPoint(id,unghi,R):
     return abscisa, ordonata  
 # call the function rotatingPoint() 
 rezult = rotatingPoint(13,angle,R)
+
+
+
 
 
 # Call the function 'grafic()' to show the graphic like in the privided picture (more or less :D )
