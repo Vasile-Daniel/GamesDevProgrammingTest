@@ -80,7 +80,7 @@ def rotatingPoint(id,unghi,R):
     pox = x0 - x
     poy = y0 - y
 
-    # "LEFT" CON + "RIGHT CONE" = 1 cone tah
+    # "LEFT" CON + "RIGHT CONE" = 1 cone 
     # P(x1,y1) for the "left" cone -- the half left cone direction 
     x1 = x0 - np.cos(angle) * pox - np.sin(angle) * poy 
     y1 = y0 - np.cos(angle) * poy + np.sin(angle) * pox
@@ -144,6 +144,7 @@ def grafic(x,y,R):
 
 a1, a2 = grafic(X,Y,R)
 print(a1,a2)
+
 
 # def calculate_angle(p1, p2, p3):
 #     # Calculate the vectors between the points
