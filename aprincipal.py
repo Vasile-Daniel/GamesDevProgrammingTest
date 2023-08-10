@@ -120,21 +120,29 @@ def rotatingPoint(id,unghi,R):
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
     ax.add_patch(sector)
 
+
+
+    # Plot the points within the sector 
+    for k in range(len_x):
+        # for i in range(len(x_points)): 
+        #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
+        ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
     # Plot the points within the sector in red
     x_points, y_points = zip(*points_in_sector)
     ax.scatter(x_points, y_points, color='red', marker='.')
 
-    # Plot the points within the sector in red
     ax.scatter(x0, y0, color='blue', marker='.')
     ax.scatter(x1, y1, color='blue', marker='*')
     ax.scatter(x2, y2, color='blue', marker='*')
     ax.scatter(x, y, color='green', marker='*')
 
+
     # Set axis limits
-    ax.set_xlim([x0 - R - 5, x0 + R + 5])
-    ax.set_ylim([y0 - R - 5, y0 + R + 5])
+    # ax.set_xlim([x0 - R - 5, x0 + R + 5])
+    # ax.set_ylim([y0 - R - 5, y0 + R + 5])
 
     # Set aspect ratio to be equal
+    ax.axis([0, 70, 0, 70])
     ax.set_aspect('equal')
 
     ax.grid()
@@ -148,13 +156,15 @@ def rotatingPoint(id,unghi,R):
     for j_x, j_y in list(points_in_sector):
         ax.text(j_x, j_y, '({}, {})'.format(j_x, j_y))
 
+    for k_x, k_y in zip(x_origin,y_origin):
+        ax.text(k_x, k_y, '({}, {})'.format(k_x, k_y))
+
     # Display the plot
     plt.show()
 
     return abscisa, ordonata  
 # call the function rotatingPoint() 
 rezult = rotatingPoint(13,angle,R)
-
 
 
 
