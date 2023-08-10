@@ -42,7 +42,7 @@ id = [] # number - see img 1
 
 for i in range(1,len_x+1):
     id.append(i)
-
+nr = 1
 ########## PROBLEM SOLVING ##################################################################################################
 # put all the data in 1 matrix (bidimensional array): x_origin,y_origin, number direction 
 matrix = np.zeros((len_x,4))
@@ -84,6 +84,7 @@ def rotatingPoint(id,unghi,R):
 
     # "LEFT" CON + "RIGHT CONE" = 1 cone
     # ######################################################### 
+
     # P(x1,y1) for the "left" cone -- the half left cone direction 
     x1 = x0 - np.cos(angle) * pox - np.sin(angle) * poy 
     y1 = y0 - np.cos(angle) * poy + np.sin(angle) * pox
@@ -100,7 +101,7 @@ def rotatingPoint(id,unghi,R):
     points_in_sector = []
     for point in points:
         xp, yp = point
-        # distance between center of the circle and point
+        # distance between center of the circle and the point
         d = np.sqrt((xp-x0)**2 + (yp-y0)**2) 
         # print(point)
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
@@ -164,7 +165,7 @@ def rotatingPoint(id,unghi,R):
 
     return abscisa, ordonata  
 # call the function rotatingPoint() 
-rezult = rotatingPoint(13,angle,R)
+rezult = rotatingPoint(nr,angle,R)
 
 
 

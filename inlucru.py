@@ -2,7 +2,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
-import math 
 ################################################
 
 ############ INPUT DATA ############################################################################
@@ -12,8 +11,9 @@ points = zip(x_origin, y_origin)
 direction = 5*["North", "East", "South", "West"] # see img 1 
 
 len_x = len(x_origin)
-angle = 45 # 
+angle = 60 # degree  
 R = 20 
+nr = 1
 id = [] # number - see img 1 
 
 for i in range(1,len_x+1):
@@ -30,7 +30,7 @@ for i in range(len_x):
     matrix[i][3] = direction[i]
 
 # Find the points on the circle on the left and side part of direction (North, Weast, South, East)        
-def rotatingPoint(id,unghi,R):
+def visiblePoints(id,unghi,R):
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
     obj = matrix[id-1]
@@ -76,7 +76,7 @@ def rotatingPoint(id,unghi,R):
     points_in_sector = []
     for point in points:
         xp, yp = point
-        # distance between center of the circle and point
+        # distance between center of the circle and the point
         d = np.sqrt((xp-x0)**2 + (yp-y0)**2) 
         # print(point)
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
@@ -96,9 +96,7 @@ def rotatingPoint(id,unghi,R):
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
     ax.add_patch(sector)
 
-
-
-    # Plot the points within the sector 
+    # Plot all points ( includin within the sector )
     for k in range(len_x):
         # for i in range(len(x_points)): 
         #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
@@ -139,7 +137,7 @@ def rotatingPoint(id,unghi,R):
     plt.show()
 
     return abscisa, ordonata  
-# call the function rotatingPoint() 
-rezult = rotatingPoint(13,angle,R)
+# call the function visiblePoints() 
+rezult = visiblePoints(nr,angle,R)
 
 
