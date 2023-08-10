@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+import math 
 ################################################
 
 ############ INPUT DATA ############################################################################
@@ -23,9 +24,9 @@ for i in range(1,len_x+1):
 matrix = np.zeros((len_x,4))
 matrix = np.array(matrix, dtype=object)
 for i in range(len_x):
-    matrix[i][0] = id[i]
-    matrix[i][1] = x_origin[i]
-    matrix[i][2] = y_origin[i]
+    matrix[i][0] = id[i] # number 
+    matrix[i][1] = x_origin[i] # abscissa 
+    matrix[i][2] = y_origin[i] # ordinate 
     matrix[i][3] = direction[i]
 
 # Find the points on the circle on the left and side part of direction (North, Weast, South, East)        
@@ -67,10 +68,6 @@ def rotatingPoint(id,unghi,R):
     x2 = x0 - np.cos(angle) * pox + np.sin(angle) * poy 
     y2 = y0 - np.cos(angle) * poy - np.sin(angle) * pox
 
-    abscisa = [x0, x2, x1, x] 
-    ordonata = [y0, y2, y1, y]
-
-
     # Calculate angles for the points
     angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
     angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
@@ -81,10 +78,11 @@ def rotatingPoint(id,unghi,R):
         xp, yp = point
         # distance between center of the circle and point
         d = np.sqrt((xp-x0)**2 + (yp-y0)**2) 
-        print(point)
+        # print(point)
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
         if (angle2 <= angle_point <= angle1) and (d < R):
             points_in_sector.append(point)
+            
 
     points_in_sector = list(points_in_sector)
 
@@ -99,6 +97,12 @@ def rotatingPoint(id,unghi,R):
     x_points, y_points = zip(*points_in_sector)
     ax.scatter(x_points, y_points, color='red', marker='.')
 
+    # Plot the points within the sector in red
+    ax.scatter(x0, y0, color='blue', marker='.')
+    ax.scatter(x1, y1, color='blue', marker='*')
+    ax.scatter(x2, y2, color='blue', marker='*')
+    ax.scatter(x, y, color='green', marker='*')
+
     # Set axis limits
     ax.set_xlim([x0 - R - 5, x0 + R + 5])
     ax.set_ylim([y0 - R - 5, y0 + R + 5])
@@ -108,6 +112,9 @@ def rotatingPoint(id,unghi,R):
 
     ax.grid()
     
+    abscisa = np.trunc([x0, x2, x1, x]) 
+    ordonata = np.trunc([y0, y2, y1, y])
+
     for i_x, i_y in zip(abscisa, ordonata):
         ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
 
@@ -117,52 +124,6 @@ def rotatingPoint(id,unghi,R):
 
     return abscisa, ordonata  
 # call the function rotatingPoint() 
-rezult = rotatingPoint(15,angle,R)
+rezult = rotatingPoint(13,angle,R)
 
 
-# Call the function 'grafic()' to show the graphic like in the privided picture (more or less :D )
-# Find the points within the sector (the core of the problem)
-# def visiblePoints(x,y,R):
-
-#     # Calculate angles for the points
-#     angle1 = np.degrees(np.arctan2(y[1] - y[0], x[1] - x[0]))
-#     angle2 = np.degrees(np.arctan2(y[2] - y[0], x[2] - x[0]))
-
-#     # Find the points within the sector
-#     points_in_sector = []
-#     for point in points:
-#         xp, yp = point
-#         angle_point = np.degrees(np.arctan2(yp - y[0], xp - x[0]))
-#         if angle2 <= angle_point <= angle1:
-#             points_in_sector.append(point)
-
-#     points_in_sector = list(points_in_sector)
-#     # Create a figure and an axis
-#     fig, ax = plt.subplots()
-
-#     # Create the wedge (sector) with the empty part
-#     sector = patches.Wedge((x[0], y[0]), R, angle2, angle1, fill=True, color='pink')
-#     ax.add_patch(sector)
-
-#     # Plot the points within the sector in red
-#     x_points, y_points = zip(*points_in_sector)
-#     ax.scatter(x_points, y_points, color='red', marker='.')
-
-#     # Set axis limits
-#     ax.set_xlim([x[0] - R - 5, x[0] + R + 5])
-#     ax.set_ylim([y[0] - R - 5, y[0] + R + 5])
-
-#     # Set aspect ratio to be equal
-#     ax.set_aspect('equal')
-#     ax.grid()
-#     for i_x, i_y in zip(x, y):
-#         ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
-
-
-#     # Display the plot
-#     plt.show()
-
-#     return angle1, angle2 
-
-# a1, a2 = visiblePoints(X,Y,R)
-# print(a1,a2)
