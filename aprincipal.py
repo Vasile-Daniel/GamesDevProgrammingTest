@@ -121,7 +121,7 @@ def rotatingPoint(id,unghi,R):
     x_points, y_points = zip(*points_in_sector)
     ax.scatter(x_points, y_points, color='red', marker='.')
 
-    # Plot the points within the sector in red
+    # Plot origin, left poin, direction point and right point 
     ax.scatter(x0, y0, color='blue', marker='.')
     ax.scatter(x1, y1, color='blue', marker='*')
     ax.scatter(x2, y2, color='blue', marker='*')
