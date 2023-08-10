@@ -42,7 +42,7 @@ for i in range(1,len_x+1):
     id.append(i)
 
 ########## PROBLEM SOLVING ##################################################################################################
-
+# put all the data in 1 matrix (bidimensional array): x_origin,y_origin, number direction 
 matrix = np.zeros((len_x,4))
 matrix = np.array(matrix, dtype=object)
 for i in range(len_x):
@@ -51,7 +51,7 @@ for i in range(len_x):
     matrix[i][2] = y_origin[i]
     matrix[i][3] = direction[i]
 
-        
+# Find the points on the circle on the left and side part of direction (North, Weast, South, East)        
 def rotatingPoint(id,unghi,R):
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
@@ -85,7 +85,7 @@ def rotatingPoint(id,unghi,R):
     x1 = x0 - np.cos(angle) * pox - np.sin(angle) * poy 
     y1 = y0 - np.cos(angle) * poy + np.sin(angle) * pox
 
-    # Right 
+    #  P(x2,y2) for the "left" cone -- the half left cone direction 
     x2 = x0 - np.cos(angle) * pox + np.sin(angle) * poy 
     y2 = y0 - np.cos(angle) * poy - np.sin(angle) * pox
 
@@ -99,7 +99,7 @@ X, Y = rotatingPoint(1,angle,R)
 # print(set(zip(X,Y)))
 
 
-# Call the function 'grafic()' to show the graphic like in pucture (more or less :D )
+# Call the function 'grafic()' to show the graphic like in the privided picture (more or less :D )
 def grafic(x,y,R):
 
     # Calculate angles for the points
@@ -145,7 +145,7 @@ def grafic(x,y,R):
 a1, a2 = grafic(X,Y,R)
 print(a1,a2)
 
-
+# NOT TO BE USED AT THE MOMENT -- verify if the function rotatingPoint(id,unghi,R) gives the right result 
 # def calculate_angle(p1, p2, p3):
 #     # Calculate the vectors between the points
 #     v1 = [p1[0] - p2[0], p1[1] - p2[1]]
