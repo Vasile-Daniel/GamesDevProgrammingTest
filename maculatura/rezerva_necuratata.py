@@ -1,3 +1,10 @@
+"""
+    
+PROIECT INCHEIAT CU TOATE CORECTARILE IVITE 
+IN ACEASTA "REZERVA" AM PASTRAT ABSOLUT TOATE print(), ... 
+. . .  INCLUSIV CELE CARE NU SUNT NECESARE IN PROIECTUL FINAL 
+"""
+
 ############################################
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -16,6 +23,7 @@ len_x = len(x_origin)
 angle = 45 # degree  
 R = 20 
 nr = 2
+
 # ########## PROBLEM SOLVING ##################################################################################################
 matrix = list(zip(number,x_origin,y_origin,direction))
 # print(matrix)
@@ -26,7 +34,7 @@ def visiblePoints(idd,unghi,R):
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
     obj = matrix[idd-1]
-    print("INPUT DATA")
+    print("Object")
     print(obj)
     x0 = obj[1]
     y0 = obj[2]
@@ -64,7 +72,10 @@ def visiblePoints(idd,unghi,R):
     # Calculate angles for the points
     angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
     angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
-
+    print("angle 1")
+    print(angle1)
+    print("angle 2")
+    print(angle2)
 
     # CORRECTION OF NEGATIVE ANGLES for 'West' dirrection
     # Correction angel 1  
@@ -80,6 +91,8 @@ def visiblePoints(idd,unghi,R):
         angle1 *= 180 / np.pi
         if angle1 < 0: 
             angle1 += 360
+        print("angle 1 corectat")
+        # print(angle1)
 
         # Correction angel 2
         angle2a = np.arctan2(y1 - y0, x1 - x0)
@@ -91,6 +104,9 @@ def visiblePoints(idd,unghi,R):
         angle2 = angle2 * 180 / np.pi # angle2 *= 180 / np.pi
         if angle2 < 0: 
             angle2 += 360
+        print("angel 2 corectat ")
+        print(angle2)
+
 
 
 
@@ -104,6 +120,8 @@ def visiblePoints(idd,unghi,R):
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
         if (angle2 <= angle_point <= angle1) and (d < R) and (point != (x0,y0)) :
             points_in_sector.append(point)
+            print("except 1")
+            print(point)
 
                  
 
@@ -114,6 +132,7 @@ def visiblePoints(idd,unghi,R):
     for i in range(len(matrix)):
         for j in range(len(points_in_sector)):
             if (points_in_sector[j]  == matrix[i][1:3]):
+                # print(matrix[i])
                 result.append(matrix[i])
 
     # Create a figure and an axis
@@ -128,7 +147,21 @@ def visiblePoints(idd,unghi,R):
 
     # Plot all points ( including within the sector )
     for k in range(len_x):
+        # for i in range(len(x_points)): 
+        #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
+
+        
+    # Plot the points within the sector in red
+    # use "try - except" because if thre id not point in sector I will have the error  
+    # ##### x_points, y_points = zip(*points_in_sector)
+    # ##### ^^^^^^^^^^^^^^^^^^
+    # ##### ValueError: not enough values to unpack (expected 2, got 0)
+    # try:
+    #     x_points, y_points = zip(*points_in_sector)
+    #     ax.scatter(x_points, y_points, color='red', marker='.')
+    # except:
+    #     points_in_sector = []
 
     try:
         x_points, y_points = zip(*points_in_sector)
@@ -175,6 +208,5 @@ def visiblePoints(idd,unghi,R):
 # call the function visiblePoints() 
 # for i in range(20,21):
 rezult = visiblePoints(nr,angle,R)
-print("OUTPUT DATA")
 print(rezult)
 

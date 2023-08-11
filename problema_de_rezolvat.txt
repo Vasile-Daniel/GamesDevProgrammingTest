@@ -1,0 +1,125 @@
+abscissa: (West, P(x0, y0), East) = (- cos(), 0, +cos() axe) = 
+
+North points: 1,5,9, 13 
+South points: 3,7,11,15
+West points: 4, 8, 12, 16 (there is a problem with point no. 4 as an input )
+East points: 2,6,10,14
+
+ISSUE: 
+Python "thinks" like this:
+ ([0^0, +180^0] = [0, pi], quadrants (in this order): I,II, trigonometric sense, counter-clockwise sense ) && ([0^0, -180^0] = [ 0, -pi], quadrants (in this order): IV,III, anti-trigonometric sense, clockwise direction ) and 
+ Python "thinks" NOT like this:
+ ([0, 360] = [0, 2*pi], trigonometric direction = anti-clockwise direction, Quadrants (in this order): I ,II,III,IV)
+
+For the reason explained abovethrethere is an issue: the code gives errors for certain inputs (input no. 4) (at the moment...). 
+
+Note: The NORMAL position of the cone is considered when the height 'h' of the cone is directed to the north (the positive semi-axis Oy - the top (peak) of the vector to the North with its  application point being the center of the circle P(x0,y0), 'h' being perpendicular to the abscissa). Thus: the left side of the cone is the part bounded by the 'h' and the left generator R, and the right side of the cone is bounded by 'h' and the right generator R.
+
+RESULTS 
+##############################################
+INPUT DATA -- ok - because allways all the points are above the abscissa (North, P(x0,y0, East))
+(1, 28, 42, 'North')
+OUTPUT DATA
+[(2, 27, 46, 'East')]
+##############################################
+INPUT DATA - ok - the output points are above and under the abscissa, but the left side of the cone is above the abscissa 
+(2, 27, 46, 'East')
+OUTPUT DATA
+[(4, 40, 50, 'West'), (8, 39, 36, 'West'), (14, 41, 34, 'East'), (17, 46, 50, 'North')]
+##############################################
+INPUT DATA - ok -- 
+(3, 16, 22, 'South')
+OUTPUT DATA
+[(5, 8, 6, 'North')]
+##############################################
+INPUT DATA -- error, there are actually 3 points
+(4, 40, 50, 'West')
+OUTPUT DATA
+[]
+##############################################
+INPUT DATA -- ok - because allways all the points are above the abscissa (North, P(x0,y0, East))
+(5, 8, 6, 'North')
+OUTPUT DATA
+[(3, 16, 22, 'South'), (6, 6, 19, 'East'), (20, 2, 12, 'West')]
+##############################################
+INPUT DATA -- ok 
+(6, 6, 19, 'East')
+OUTPUT DATA
+[(3, 16, 22, 'South')]
+##############################################
+INPUT DATA -- ok, there are no points inside the cone area 
+(7, 28, 5, 'South')
+OUTPUT DATA
+[]
+##############################################
+INPUT DATA -- ok becasue all the points are above the abscissa 
+(8, 39, 36, 'West')
+OUTPUT DATA
+[(1, 28, 42, 'North'), (2, 27, 46, 'East')]
+##############################################
+INPUT DATA -- ok - because allways all the points are above the abscissa (North, P(x0,y0, East))
+(9, 12, 34, 'North')
+OUTPUT DATA
+[(11, 22, 47, 'South'), (16, 6, 49, 'West'), (18, 17, 40, 'East')]
+##############################################
+INPUT DATA -- ok 
+(10, 36, 20, 'East')
+OUTPUT DATA
+[(13, 41, 18, 'North')]
+##############################################
+INPUT DATA -- ok 
+(11, 22, 47, 'South')
+OUTPUT DATA
+[(9, 12, 34, 'North'), (15, 14, 29, 'South'), (18, 17, 40, 'East')]
+##############################################
+INPUT DATA -- ok 
+(12, 33, 19, 'West')
+OUTPUT DATA
+[(3, 16, 22, 'South')]
+##############################################
+INPUT DATA -- ok 
+(13, 41, 18, 'North')
+OUTPUT DATA
+[(8, 39, 36, 'West'), (14, 41, 34, 'East')]
+##############################################
+INPUT DATA -- ok - there are no points inside the cone area 
+(14, 41, 34, 'East')
+OUTPUT DATA
+[]
+##############################################
+INPUT DATA -- ok 
+(15, 14, 29, 'South')
+OUTPUT DATA
+[(3, 16, 22, 'South'), (6, 6, 19, 'East')]
+##############################################
+INPUT DATA -- ok - there are no points inside the cone area 
+(16, 6, 49, 'West')
+OUTPUT DATA
+[]
+##############################################
+INPUT DATA-- ok - thre are no points inside the cone area 
+(17, 46, 50, 'North')
+OUTPUT DATA
+[]
+##############################################
+INPUT DATA -- ok - 
+(18, 17, 40, 'East')
+OUTPUT DATA
+[(1, 28, 42, 'North'), (2, 27, 46, 'East')]
+##############################################
+INPUT DATA -- ok 
+(19, 28, 26, 'South')
+OUTPUT DATA
+[(12, 33, 19, 'West')]
+##############################################
+INPUT DATA -- ok - thre are no points inside the cone area 
+(20, 2, 12, 'West')
+OUTPUT DATA
+[]
+
+
+
+
+
+
+

@@ -1,3 +1,20 @@
+"""
+Project Name: Tech Test for Games Developments Bootcamp  
+Author: Vasile-Daniel DAN 
+Location: Sheffield, UK 
+Initial Date: 7 August 2023 (Last Update: 11 August 2023)  
+"""
+
+"""
+PROBLEM FORMULATION 
+
+Given the data from "img1", make a function where given a Point value returns all points in a visible cone that extends in the direction given a visible cone value made up of degrees and maximum direction. 
+
+For instance, the function VisiblePoints(1,45,20) returns an array with one object (27,46,2,East).
+
+In this example, the 45 degree cone is 45 degrees in each direction so could be visualised like in "img2":
+
+"""
 ############################################
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -15,7 +32,7 @@ number = list(range(1,21))
 len_x = len(x_origin)
 angle = 45 # degree  
 R = 20 
-nr = 2
+nr = 20
 # ########## PROBLEM SOLVING ##################################################################################################
 matrix = list(zip(number,x_origin,y_origin,direction))
 # print(matrix)
