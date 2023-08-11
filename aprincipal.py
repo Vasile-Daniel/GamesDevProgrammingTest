@@ -19,6 +19,7 @@ In this example, the 45 degree cone is 45 degrees in each direction so could be 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+import math 
 ################################################
 
 ############ INPUT DATA ############################################################################
@@ -31,7 +32,7 @@ number = list(range(1,21))
 len_x = len(x_origin)
 angle = 45 # degree  
 R = 20 
-nr = 14
+nr = 12
 
 # ########## PROBLEM SOLVING ##################################################################################################
 matrix = list(zip(number,x_origin,y_origin,direction))
@@ -81,6 +82,40 @@ def visiblePoints(idd,unghi,R):
     # Calculate angles for the points
     angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
     angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
+    print("angle 1")
+    print(angle1)
+    print("angle 2")
+    print(angle2)
+
+    # CORRECTION OF NEGATIVE ANGLES
+    # Correction angel 1  
+    angle1a = np.arctan2(y2 - y0, x2 - x0)
+
+    cs1 = np.cos(angle1a)
+    sn1 = np.sin(angle1a)
+
+
+    angle1 = math.atan2(sn1, cs1)  # ALWAYS USE THIS
+    angle1 *= 180 / np.pi
+    if angle1 < 0: 
+        angle1 += 360
+    print("angle 1 corectat")
+    print(angle1)
+
+    # Correction angel 2
+    angle2a = np.arctan2(y1 - y0, x1 - x0)
+
+    cs2 = np.cos(angle2a)
+    sn2 = np.sin(angle2a)
+
+    angle2 = math.atan2(sn2, cs2)  # ALWAYS USE THIS
+    angle2 = angle2 * 180 / np.pi # angle2 *= 180 / np.pi
+    if angle2 < 0: 
+        angle2 += 360
+    print("angel 2 corectat ")
+    print(angle2)
+
+
 
 
     # Find the points within the sector
@@ -93,8 +128,16 @@ def visiblePoints(idd,unghi,R):
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
         if (angle2 <= angle_point <= angle1) and (d < R):
             points_in_sector.append(point)
-        
-            
+    # for point in points:
+    #     xp, yp = point
+    #     d = np.sqrt((xp - x0) ** 2 + (yp - y0) ** 2)
+    #     angle_point = np.arctan2(yp - y0, xp - x0)
+    #     if angle2 <= angle1:
+    #         if angle2 <= angle_point <= angle1 and d < R:
+    #             points_in_sector.append(point)
+    #     else:
+    #         if angle2 <= angle_point or angle_point <= angle1 and d < R:
+    #             points_in_sector.append(point)                  
 
     points_in_sector = list(points_in_sector)
     # print(points_in_sector)
@@ -116,21 +159,29 @@ def visiblePoints(idd,unghi,R):
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
     ax.add_patch(sector)
 
-    # Plot all points ( includin within the sector )
+    # Plot all points ( including within the sector )
     for k in range(len_x):
         # for i in range(len(x_points)): 
         #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
+
+        
     # Plot the points within the sector in red
     # use "try - except" because if thre id not point in sector I will have the error  
     # ##### x_points, y_points = zip(*points_in_sector)
     # ##### ^^^^^^^^^^^^^^^^^^
     # ##### ValueError: not enough values to unpack (expected 2, got 0)
+    # try:
+    #     x_points, y_points = zip(*points_in_sector)
+    #     ax.scatter(x_points, y_points, color='red', marker='.')
+    # except:
+    #     points_in_sector = []
+
     try:
         x_points, y_points = zip(*points_in_sector)
         ax.scatter(x_points, y_points, color='red', marker='.')
     except:
-        points_in_sector = []
+        x_points, y_points = [], []
 
 
     ax.scatter(x0, y0, color='blue', marker='.')
@@ -169,9 +220,9 @@ def visiblePoints(idd,unghi,R):
 
 
 # call the function visiblePoints() 
-for i in range(20,21):
-    rezult = visiblePoints(i,angle,R)
-    print(rezult)
+# for i in range(20,21):
+rezult = visiblePoints(nr,angle,R)
+print(rezult)
 
 
 
