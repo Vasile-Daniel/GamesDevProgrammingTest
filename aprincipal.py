@@ -2,7 +2,7 @@
 Project Name: Tech Test for Games Developments Bootcamp  
 Author: Vasile-Daniel DAN 
 Location: Sheffield, UK 
-Initial Date: 7 August 2023 (Last Update: 10 August 2023)  
+Initial Date: 7 August 2023 (Last Update: 11 August 2023)  
 """
 
 """
@@ -31,7 +31,7 @@ number = list(range(1,21))
 len_x = len(x_origin)
 angle = 45 # degree  
 R = 20 
-nr = 9
+nr = 14
 
 # ########## PROBLEM SOLVING ##################################################################################################
 matrix = list(zip(number,x_origin,y_origin,direction))
@@ -82,6 +82,7 @@ def visiblePoints(idd,unghi,R):
     angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
     angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
 
+
     # Find the points within the sector
     points_in_sector = []
     for point in points:
@@ -117,15 +118,10 @@ def visiblePoints(idd,unghi,R):
 
     # Plot all points ( includin within the sector )
     for k in range(len_x):
-        # for i in range(len(x_points)): 
-        #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
-    # Plot the points within the sector in red
-    try:
         x_points, y_points = zip(*points_in_sector)
         ax.scatter(x_points, y_points, color='red', marker='.')
-    except:
-        points_in_sector = []
+
 
 
     ax.scatter(x0, y0, color='blue', marker='.')
@@ -164,8 +160,9 @@ def visiblePoints(idd,unghi,R):
 
 
 # call the function visiblePoints() 
-rezult = visiblePoints(nr,angle,R)
-print(rezult)
+for i in range(20,21):
+    rezult = visiblePoints(i,angle,R)
+    print(rezult)
 
 
 
