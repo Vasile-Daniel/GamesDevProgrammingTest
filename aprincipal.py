@@ -118,10 +118,19 @@ def visiblePoints(idd,unghi,R):
 
     # Plot all points ( includin within the sector )
     for k in range(len_x):
+        # for i in range(len(x_points)): 
+        #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
+    # Plot the points within the sector in red
+    # use "try - except" because if thre id not point in sector I will have the error  
+    # ##### x_points, y_points = zip(*points_in_sector)
+    # ##### ^^^^^^^^^^^^^^^^^^
+    # ##### ValueError: not enough values to unpack (expected 2, got 0)
+    try:
         x_points, y_points = zip(*points_in_sector)
         ax.scatter(x_points, y_points, color='red', marker='.')
-
+    except:
+        points_in_sector = []
 
 
     ax.scatter(x0, y0, color='blue', marker='.')
