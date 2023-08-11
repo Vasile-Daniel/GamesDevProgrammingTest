@@ -31,7 +31,7 @@ number = list(range(1,21))
 len_x = len(x_origin)
 angle = 45 # degree  
 R = 20 
-nr = 1
+nr = 9
 
 # ########## PROBLEM SOLVING ##################################################################################################
 matrix = list(zip(number,x_origin,y_origin,direction))
@@ -43,8 +43,8 @@ def visiblePoints(idd,unghi,R):
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
     obj = matrix[idd-1]
-    # print("Object")
-    # print(obj)
+    print("Object")
+    print(obj)
     x0 = obj[1]
     y0 = obj[2]
 
@@ -92,6 +92,7 @@ def visiblePoints(idd,unghi,R):
         angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
         if (angle2 <= angle_point <= angle1) and (d < R):
             points_in_sector.append(point)
+        
             
 
     points_in_sector = list(points_in_sector)
@@ -120,8 +121,12 @@ def visiblePoints(idd,unghi,R):
         #     if ((x_origin[k] != x_points[i]) and (y_origin[k] != y_points[i])):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
     # Plot the points within the sector in red
-    x_points, y_points = zip(*points_in_sector)
-    ax.scatter(x_points, y_points, color='red', marker='.')
+    try:
+        x_points, y_points = zip(*points_in_sector)
+        ax.scatter(x_points, y_points, color='red', marker='.')
+    except:
+        points_in_sector = []
+
 
     ax.scatter(x0, y0, color='blue', marker='.')
     ax.scatter(x1, y1, color='blue', marker='*')
