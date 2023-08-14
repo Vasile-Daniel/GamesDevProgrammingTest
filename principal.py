@@ -2,7 +2,7 @@
 Project Name: Tech Test for Games Developments Bootcamp  
 Author: Vasile-Daniel DAN 
 Location: Sheffield, UK 
-Initial Date: 7 August 2023 (Last Update: 11 August 2023)  
+Initial Date: 7 August 2023 (Last Update: 14 August 2023)  
 """
 
 """
@@ -15,39 +15,91 @@ For instance, the function VisiblePoints(1,45,20) returns an array with one obje
 In this example, the 45 degree cone is 45 degrees in each direction so could be visualised like in "img2":
 
 """
+###
+"""
+n = [ 1,  2,  3,  4, 5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+x = [28, 27, 16, 40, 8,  6, 28, 39, 12, 36, 22, 33, 41, 41, 14,  6, 46, 17, 28,  2] 
+y = [42, 46, 22, 50, 6, 19,  5, 36, 34, 20, 47, 19, 18, 34, 29, 49, 50, 40, 26, 12] 
+
+d = [ N,  E,  S,  W, N,  E,  S,  W,  N,  E,  S,  W,  N,  E,  S,  W,  N,  E,  S,  W]
+"""
+###
+"""
+We consider a cone with angle alpha and generator G.
+If we unfold the cone (img3), we will have a sector of a circle with a radius R equal to the generator G and angle beta = 2 * alpha. 
+The top of the cone represents the center of the circle. 
+We denote the center of the circle by P(x_origin, y_origin). Where x_origin and y_origin are the Cartesian coordinates of P.
+To solve the problem we use the Python programming language.
+
+"""
 ############################################
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from matplotlib import image as mpimg
 import numpy as np
 import math 
 ################################################
 
+###### IMAGES ######################################################################################
+
+# plt.title("Table with given the data") 
+# img1 = mpimg.imread("tabel1.jpg")
+# plt.imshow(img1)
+# plt.show()
+# ###########################
+# plt.title("45 degree cone")
+# plt.xlabel("X pixel scaling")
+# plt.ylabel("Y pixels scaling")
+ 
+# img2 = mpimg.imread("conul.jpg")
+# plt.imshow(img2)
+# plt.show()
+
+# ###########################
+# plt.title("Right circular cone")
+# plt.xlabel("X pixel scaling")
+# plt.ylabel("Y pixels scaling")
+# img3 = mpimg.imread("cone_circular_drept1.jpg")
+# plt.imshow(img3)
+# plt.show()
+
+
 ############ INPUT DATA ############################################################################
+# Abscissa of the point P 
 x_origin = [28, 27, 16, 40, 8,  6, 28, 39, 12, 36, 22, 33, 41, 41, 14,  6, 46, 17, 28,  2] # see img 1
+# Ordonatre of the point P 
 y_origin = [42, 46, 22, 50, 6, 19,  5, 36, 34, 20, 47, 19, 18, 34, 29, 49, 50, 40, 26, 12] # see img 1
+# Point P(x_origin, y_origin)
 points = zip(x_origin, y_origin)
+# direction of the points: 5 * 4 cardinal points 
 direction = 5*["North", "East", "South", "West"] # see img 1 
+# Generate a vector (unidimensonal array) of the position of points
 number = list(range(1,21))
-
-len_x = len(x_origin)
-angle = 45 # degree  
-R = 20 
-nr = 20
-# ########## PROBLEM SOLVING ##################################################################################################
+# Generate a matrix (table, bidimenional array) with 20 rows and 4 columns 
+# the first column representa the position of the points in the Table  
 matrix = list(zip(number,x_origin,y_origin,direction))
-# print(matrix)
+# ###################
+len_x = len(x_origin) # length of array x_origin 
+angle = 45 # input angle in degree  
+R = 20 # radius = generator of the cone 
+nr = 3 # position in matrix of the input point:(number, x_origin, y_origin, direction), center of the circle P(x_origin, y_origin)
+# ########## PROBLEM SOLVING ##################################################################################################
 
-
-# Find the points on the circle on the left and side part of direction (North, Weast, South, East)        
+# generate the function (method): visiblePoints(number,angle,R)      
 def visiblePoints(idd,unghi,R):
+    # Angle: Degrees to Radians formula transformation  
     angle = (unghi * np.pi) /180 # angle = deg2rad(unghi)
 
-    obj = matrix[idd-1]
+   
+    obj = matrix[idd-1]  # An object that represent a line in the matrix 
     print("INPUT DATA")
     print(obj)
-    x0 = obj[1]
-    y0 = obj[2]
+    x0 = obj[1] # absissa 
+    y0 = obj[2] # ordinate 
 
+    # calculate the coordinate points of the Cardinal Points (N,W,S,E) situated at the distance R from the center P 
+    # So we will have: (North(x,y) ||  West(x,y)  || South(x,y) ||  East(x,y)) 
     if (obj[3] == "North"):
         x = obj[1]
         y = obj[2]+R
@@ -65,28 +117,23 @@ def visiblePoints(idd,unghi,R):
         y = obj[2]
         # print(obj[3])
 
-    pox = x0 - x
-    poy = y0 - y
+    pox = x0 - x # Difference between abscissa of P and abscissa of Cardinal Point 
+    poy = y0 - y # Difference between ordinate of P and ordinate of Cardinal Point 
 
     # "LEFT" CON + "RIGHT CONE" = 1 cone
     # ######################################################### 
-    # P(x1,y1) for the "left" cone -- the half left cone direction 
+    # Q(x1,y1) for the "left" cone -- the half left cone direction, a point on the circle
     x1 = x0 - np.cos(angle) * pox - np.sin(angle) * poy 
     y1 = y0 - np.cos(angle) * poy + np.sin(angle) * pox
 
-    #  P(x2,y2) for the "right" cone -- the half right cone direction 
+    #  Q(x2,y2) for the "right" cone -- the half right cone direction, a point on the circle 
     x2 = x0 - np.cos(angle) * pox + np.sin(angle) * poy 
     y2 = y0 - np.cos(angle) * poy - np.sin(angle) * pox
 
-    # Calculate angles for the points
-    angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
-    angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
-
 
     # CORRECTION OF NEGATIVE ANGLES for 'West' dirrection
-    # Correction angel 1  
-
     if (obj[3] == "West"):
+         # Correction angel 1  if has negative value
         angle1a = np.arctan2(y2 - y0, x2 - x0)
 
         cs1 = np.cos(angle1a)
@@ -98,7 +145,8 @@ def visiblePoints(idd,unghi,R):
         if angle1 < 0: 
             angle1 += 360
 
-        # Correction angel 2
+
+        # Correction angel 2 if has negative value 
         angle2a = np.arctan2(y1 - y0, x1 - x0)
 
         cs2 = np.cos(angle2a)
@@ -108,8 +156,11 @@ def visiblePoints(idd,unghi,R):
         angle2 = angle2 * 180 / np.pi # angle2 *= 180 / np.pi
         if angle2 < 0: 
             angle2 += 360
-
-
+        
+    else:
+        # Calculate angles for the points
+        angle1 = np.degrees(np.arctan2(y2 - y0, x2 - x0))
+        angle2 = np.degrees(np.arctan2(y1 - y0, x1 - x0))
 
     # Find the points within the sector
     points_in_sector = []
@@ -117,8 +168,23 @@ def visiblePoints(idd,unghi,R):
         xp, yp = point
         # distance between center of the circle and the point
         d = np.sqrt((xp-x0)**2 + (yp-y0)**2) 
-        # print(point)
-        angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
+
+        if (obj[3] == "West"):
+            # Correction of angel_point if has negative value 
+            anglePa = np.arctan2(yp - y0, xp - x0)
+
+            csP = np.cos(anglePa)
+            snP = np.sin(anglePa)
+
+            angle_point = math.atan2(snP, csP)  # ALWAYS USE THIS
+            angle_point = angle_point * 180 / np.pi # angle_point *= 180 / np.pi
+
+            if angle_point < 0: 
+                angle_point += 360
+        else: 
+            angle_point = np.degrees(np.arctan2(yp - y0, xp - x0))
+
+
         if (angle2 <= angle_point <= angle1) and (d < R) and (point != (x0,y0)) :
             points_in_sector.append(point)
 
@@ -143,7 +209,7 @@ def visiblePoints(idd,unghi,R):
     sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
     ax.add_patch(sector)
 
-    # Plot all points ( including within the sector )
+    # Plot all points ( including within the sector)
     for k in range(len_x):
         ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
 
@@ -158,11 +224,6 @@ def visiblePoints(idd,unghi,R):
     ax.scatter(x1, y1, color='blue', marker='*')
     ax.scatter(x2, y2, color='blue', marker='*')
     ax.scatter(x, y, color='green', marker='*')
-
-
-    # Set axis limits
-    # ax.set_xlim([x0 - R - 5, x0 + R + 5])
-    # ax.set_ylim([y0 - R - 5, y0 + R + 5])
 
     # Set aspect ratio to be equal
     ax.axis([0, 70, 0, 70])
@@ -190,7 +251,6 @@ def visiblePoints(idd,unghi,R):
 
 
 # call the function visiblePoints() 
-# for i in range(20,21):
 rezult = visiblePoints(nr,angle,R)
 print("OUTPUT DATA")
 print(rezult)
