@@ -1,6 +1,7 @@
 """
 Project Name: Tech Test for Games Developments Bootcamp  
-Author: Vasile-Daniel DAN 
+Author: Vasile-Daniel DAN
+Company/School: The Developer Academy  
 Location: Sheffield, UK 
 Initial Date: 7 August 2023 (Last Update: 14 August 2023)  
 """
@@ -43,7 +44,7 @@ import math
 
 ###### IMAGES ######################################################################################
 
-# plt.title("Table with given the data") 
+# plt.title("Table with given data") 
 # img1 = mpimg.imread("tabel1.jpg")
 # plt.imshow(img1)
 # plt.show()
@@ -83,7 +84,7 @@ matrix = list(zip(number,x_origin,y_origin,direction))
 len_x = len(x_origin) # length of array x_origin 
 angle = 45 # input angle in degree  
 R = 20 # radius = generator of the cone 
-nr = 3 # position in matrix of the input point:(number, x_origin, y_origin, direction), center of the circle P(x_origin, y_origin)
+nr = 20 # position in matrix of the input point:(number, x_origin, y_origin, direction), center of the circle P(x_origin, y_origin)
 # ########## PROBLEM SOLVING ##################################################################################################
 
 # generate the function (method): visiblePoints(number,angle,R)      
@@ -199,52 +200,53 @@ def visiblePoints(idd,unghi,R):
             if (points_in_sector[j]  == matrix[i][1:3]):
                 result.append(matrix[i])
 
-    # Create a figure and an axis
-    fig, ax = plt.subplots()
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_title("The points in the area of the cone sector")
+    # # Create a figure and an axis
+    # fig, ax = plt.subplots()
+    # ax.set_xlabel("X")
+    # ax.set_ylabel("Y")
+    # ax.set_title("The points in the area of the cone sector")
 
-    # Create the wedge (sector) with the empty part
-    sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
-    ax.add_patch(sector)
+    # # Create the wedge (sector) with the empty part
+    # sector = patches.Wedge((x0, y0), R, angle2, angle1, fill=True, color='pink')
+    # ax.add_patch(sector)
 
-    # Plot all points ( including within the sector)
-    for k in range(len_x):
-        ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
+    # # Plot all points ( including within the sector)
+    # for k in range(len_x):
+    #     ax.scatter(x_origin[k], y_origin[k], color='black', marker='.')
 
-    try:
-        x_points, y_points = zip(*points_in_sector)
-        ax.scatter(x_points, y_points, color='red', marker='.')
-    except:
-        x_points, y_points = [], []
+    # try:
+    #     x_points, y_points = zip(*points_in_sector)
+    #     ax.scatter(x_points, y_points, color='red', marker='.')
+    # except:
+    #     x_points, y_points = [], []
 
 
-    ax.scatter(x0, y0, color='blue', marker='.')
-    ax.scatter(x1, y1, color='blue', marker='*')
-    ax.scatter(x2, y2, color='blue', marker='*')
-    ax.scatter(x, y, color='green', marker='*')
+    # ax.scatter(x0, y0, color='blue', marker='.')
+    # ax.scatter(x1, y1, color='blue', marker='*')
+    # ax.scatter(x2, y2, color='blue', marker='*')
+    # ax.scatter(x, y, color='green', marker='*')
 
-    # Set aspect ratio to be equal
-    ax.axis([0, 70, 0, 70])
-    ax.set_aspect('equal')
+    # # Set aspect ratio to be equal
+    # ax.axis([0, 70, 0, 70])
+    # ax.set_aspect('equal')
 
-    ax.grid()
+    # ax.grid()
     
-    abscisa = np.trunc([x0, x2, x1, x]) 
-    ordonata = np.trunc([y0, y2, y1, y])
+    # abscisa = np.trunc([x0, x2, x1, x]) 
+    # ordonata = np.trunc([y0, y2, y1, y])
 
-    for i_x, i_y in zip(abscisa, ordonata):
-        ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
+    # for i_x, i_y in zip(abscisa, ordonata):
+    #     ax.text(i_x, i_y, '({}, {})'.format(i_x, i_y))
 
-    for j_x, j_y in list(points_in_sector):
-        ax.text(j_x, j_y, '({}, {})'.format(j_x, j_y))
+    # for j_x, j_y in list(points_in_sector):
+    #     ax.text(j_x, j_y, '({}, {})'.format(j_x, j_y))
 
-    for k_x, k_y in zip(x_origin,y_origin):
-        ax.text(k_x, k_y, '({}, {})'.format(k_x, k_y))
+    # for k_x, k_y in zip(x_origin,y_origin):
+    #     ax.text(k_x, k_y, '({}, {})'.format(k_x, k_y))
 
-    # Display the plot
-    plt.show()
+    # # Display the plot
+    # plt.show()
+
     return result 
     
 
